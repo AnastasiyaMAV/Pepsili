@@ -1,3 +1,4 @@
+import BrowserNotSupportedIcon from "@mui/icons-material/BrowserNotSupported";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -6,6 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import Tooltip from "@mui/material/Tooltip";
 import { useStore } from "@nanostores/react";
 import * as React from "react";
 
@@ -47,6 +49,7 @@ export default function StickyHeadTable() {
 		<Paper
 			sx={{
 				overflow: "hidden",
+				marginX: "24px",
 				marginTop: "24px",
 			}}
 		>
@@ -70,7 +73,13 @@ export default function StickyHeadTable() {
 											const value = row[column.id];
 											return (
 												<TableCell key={column.id} align={column.align}>
-													{value + " "}
+													{column.id === "bySubBreed" && value.length === 0 ? (
+														<Tooltip title="No data" placement="right" arrow>
+															<BrowserNotSupportedIcon />
+														</Tooltip>
+													) : (
+														value + " "
+													)}
 												</TableCell>
 											);
 										})}
