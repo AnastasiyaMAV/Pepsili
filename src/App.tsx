@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
+import Cards from "./pages/Cards";
 import Table from "./pages/Table";
 
 import Header from "./components/Header";
@@ -18,7 +19,7 @@ function App() {
 				<Routes>
 					<Route index element={<Table />} />
 					<Route path="table" element={<Table />} />
-					<Route path="cards" element={<div>Dog cards</div>} />
+					<Route path="cards" element={<Cards />} />
 					<Route path="search" element={<div>Dog breed photo search</div>} />
 					<Route path="*" element={<div>4</div>} />
 				</Routes>
