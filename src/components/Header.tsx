@@ -1,3 +1,4 @@
+import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import * as React from "react";
@@ -18,14 +19,16 @@ function useRouteMatch(patterns: readonly string[]) {
 }
 
 export default function Header() {
-	const routeMatch = useRouteMatch(["/inbox/:id", "/drafts", "/trash"]);
+	const routeMatch = useRouteMatch(["/table", "/cards", "/search"]);
 	const currentTab = routeMatch?.pattern?.path;
 
 	return (
-		<Tabs value={currentTab}>
-			<Tab label="Table of dog breeds" value="/table" to="/table" component={Link} />
-			<Tab label="Dog cards" value="/cards" to="/cards" component={Link} />
-			<Tab label="Dog breed photo search" value="/search" to="/search" component={Link} />
-		</Tabs>
+		<Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+			<Tabs value={currentTab}>
+				<Tab label="Table of dog breeds" value="/table" to="/table" component={Link} />
+				<Tab label="Dog cards" value="/cards" to="/cards" component={Link} />
+				<Tab label="Dog breed photo search" value="/search" to="/search" component={Link} />
+			</Tabs>
+		</Box>
 	);
 }

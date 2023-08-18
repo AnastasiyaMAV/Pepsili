@@ -7,12 +7,16 @@ type TDogs = {
 type DogsStore = {
 	isLoading: boolean;
 	dogs: TDogs;
+	breed: string[];
+	subBreed: Array<string>[];
 };
 
 function createDogsStore() {
 	const initialState = {
 		isLoading: false,
 		dogs: {},
+		breed: [],
+		subBreed: [[]],
 	};
 
 	const store = map<DogsStore>(initialState);
@@ -25,8 +29,9 @@ function createDogsStore() {
 				const data = await fetch("https://dog.ceo/api/breeds/list/all").then(res => {
 					if (res.ok) return res.json();
 				});
-				console.log(data);
-				store.setKey("dogs", data);
+				store.setKey("dogs", data.message);
+				store.setKey("breed", Object.keys(data.message));
+				store.setKey("subBreed", Object.values(data.message));
 			} catch (e) {
 				console.log(e);
 			} finally {
