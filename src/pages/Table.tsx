@@ -8,6 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 import { useStore } from "@nanostores/react";
 import * as React from "react";
 
@@ -55,7 +56,7 @@ export default function StickyHeadTable() {
 		>
 			<Paper>
 				<TableContainer>
-					<Table stickyHeader aria-label="sticky table">
+					<Table aria-label="table">
 						<TableHead>
 							<TableRow>
 								{columns.map(column => (
@@ -68,18 +69,25 @@ export default function StickyHeadTable() {
 						<TableBody>
 							{rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
 								return (
-									<TableRow hover role="checkbox" tabIndex={-1} key={row.byBreed}>
+									<TableRow hover tabIndex={-1} key={row.byBreed}>
 										{columns.map(column => {
 											const value = row[column.id];
 											return (
 												<TableCell key={column.id} align={column.align}>
-													{column.id === "bySubBreed" && value.length === 0 ? (
+													{column.id === "bySubBreed" && value.length === 0 && (
 														<Tooltip title="No data" placement="right" arrow>
 															<BrowserNotSupportedIcon />
 														</Tooltip>
-													) : (
-														value + " "
 													)}
+													{typeof value === "object" && value.length > 1
+														? value.map(element => {
+																return (
+																	<Typography variant="body2" key={element}>
+																		{element}
+																	</Typography>
+																);
+														  })
+														: value}
 												</TableCell>
 											);
 										})}

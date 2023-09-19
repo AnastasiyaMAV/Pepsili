@@ -1,7 +1,6 @@
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
-import * as React from "react";
 import { Link, matchPath, useLocation } from "react-router-dom";
 
 function useRouteMatch(patterns: readonly string[]) {
