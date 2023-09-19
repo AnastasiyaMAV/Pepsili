@@ -9,6 +9,7 @@ type DogsStore = {
 	dogs: TDogs;
 	breed: string[];
 	subBreed: Array<string>[];
+	searchImgBreed: string;
 };
 
 function createDogsStore() {
@@ -17,6 +18,7 @@ function createDogsStore() {
 		dogs: {},
 		breed: [],
 		subBreed: [[]],
+		searchImgBreed: "",
 	};
 
 	const store = map<DogsStore>(initialState);
@@ -40,7 +42,32 @@ function createDogsStore() {
 		}).catch(console.log);
 	});
 
-	return { store, fetchDogBreeds };
+	const searchDogBreeds = action(store, "searchDogBreeds", (store, props: string) => {
+		props &&
+			task(async () => {
+				try {
+					const data = await fetch(`https://dog.ceo/api/breed/${props}/images`).then(res => {
+						if (res.ok) return res.json();
+					});
+					const randomNum = Math.floor(Math.random() * data.message.length);
+					store.setKey("searchImgBreed", data.message[randomNum]);
+				} catch (e) {
+					console.log(e);
+				} finally {
+					store.setKey("isLoading", true);
+				}
+			}).catch(console.log);
+	});
+
+	const setSearchDogBreeds = action(store, "setSearchDogBreeds", (store, value: string) => {
+		store.setKey("searchImgBreed", value);
+	});
+
+	const setIsLoading = action(store, "setIsLoading", (store, value: boolean) => {
+		store.setKey("isLoading", value);
+	});
+
+	return { store, fetchDogBreeds, searchDogBreeds, setSearchDogBreeds, setIsLoading };
 }
 
 export const dogsState = createDogsStore();

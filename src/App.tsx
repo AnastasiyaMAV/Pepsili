@@ -1,7 +1,7 @@
-import Box from "@mui/material/Box";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
 import Cards from "./pages/Cards";
+import Search from "./pages/Search";
 import Table from "./pages/Table";
 
 import Header from "./components/Header";
@@ -14,16 +14,14 @@ function App() {
 
 	return (
 		<Router>
-			<Box sx={{ width: "100%" }}>
-				<Header />
-				<Routes>
-					<Route index element={<Table />} />
-					<Route path="table" element={<Table />} />
-					<Route path="cards" element={<Cards />} />
-					<Route path="search" element={<div>Dog breed photo search</div>} />
-					<Route path="*" element={<div>4</div>} />
-				</Routes>
-			</Box>
+			<Header />
+			<Routes>
+				<Route index element={<Table />} />
+				<Route path="table" element={<Table />} />
+				<Route path="cards" element={<Cards />} />
+				<Route path="search" element={<Search />} />
+				<Route path="*" element={<div>4</div>} />
+			</Routes>
 		</Router>
 	);
 }
