@@ -1,29 +1,30 @@
+import { useEffect } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
-import Cards from "./pages/Cards";
-import Search from "./pages/Search";
-import Table from "./pages/Table";
+import { Cards } from "./pages/Cards";
+import { Search } from "./pages/Search";
+import { TableDog } from "./pages/TableDog";
 
-import Header from "./components/Header";
+import { Header } from "./components/Header";
 
 import "./App.css";
 import { dogsState } from "./store/dogs";
 
-function App() {
-	dogsState.fetchDogBreeds();
+export const App = () => {
+	useEffect(() => {
+		dogsState.fetchDogBreeds();
+	}, []);
 
 	return (
 		<Router>
 			<Header />
 			<Routes>
-				<Route index element={<Table />} />
-				<Route path="table" element={<Table />} />
+				<Route index element={<TableDog />} />
+				<Route path="table" element={<TableDog />} />
 				<Route path="cards" element={<Cards />} />
 				<Route path="search" element={<Search />} />
 				<Route path="*" element={<div>4</div>} />
 			</Routes>
 		</Router>
 	);
-}
-
-export default App;
+};

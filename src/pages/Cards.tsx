@@ -20,7 +20,7 @@ const Item = styled(Paper)(({ theme }) => ({
 	color: theme.palette.text.secondary,
 }));
 
-export default function ResponsiveGrid() {
+export const Cards = () => {
 	const { breed } = useStore(dogsState.store);
 	const cards = breed.map(br => ({
 		byBreed: br,
@@ -53,4 +53,4 @@ export default function ResponsiveGrid() {
 			</Grid>
 		</Box>
 	);
-}
+};
