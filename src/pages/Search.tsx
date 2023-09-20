@@ -19,13 +19,14 @@ import { searchScheme } from "../validation/search";
 type TDog = {
 	breed: string;
 };
+
 export const Img = styled.img`
 	width: 400px;
 	height: 500px;
 	object-fit: scale-down;
 `;
 
-export default function Search() {
+export const Search = () => {
 	const { breed, searchImgBreed, isLoading } = useStore(dogsState.store);
 
 	const methods = useForm({
@@ -96,7 +97,7 @@ export default function Search() {
 			</Grid>
 			<Grid item xs={6} container direction="row" justifyContent="center" alignItems="center">
 				{!isLoading ? (
-					<Skeleton variant="rectangular" width="400px">
+					<Skeleton variant="rectangular" width="400px" animation="wave">
 						<div style={{ height: "500px" }} />
 					</Skeleton>
 				) : (
@@ -105,4 +106,4 @@ export default function Search() {
 			</Grid>
 		</Grid>
 	);
-}
+};

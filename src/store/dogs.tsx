@@ -10,6 +10,7 @@ type DogsStore = {
 	breed: string[];
 	subBreed: Array<string>[];
 	searchImgBreed: string;
+	error: boolean;
 };
 
 function createDogsStore() {
@@ -19,27 +20,33 @@ function createDogsStore() {
 		breed: [],
 		subBreed: [[]],
 		searchImgBreed: "",
+		error: false,
 	};
 
 	const store = map<DogsStore>(initialState);
 
 	const fetchDogBreeds = action(store, "fetchDogBreeds", store => {
 		store.setKey("isLoading", true);
-
-		task(async () => {
-			try {
-				const data = await fetch("https://dog.ceo/api/breeds/list/all").then(res => {
-					if (res.ok) return res.json();
-				});
-				store.setKey("dogs", data.message);
-				store.setKey("breed", Object.keys(data.message));
-				store.setKey("subBreed", Object.values(data.message));
-			} catch (e) {
-				console.log(e);
-			} finally {
-				store.setKey("isLoading", false);
-			}
-		}).catch(console.log);
+		setTimeout(
+			() =>
+				task(async () => {
+					try {
+						const data = await fetch("https://dog.ceo/api/breeds/list/all").then(res => {
+							if (res.ok) return res.json();
+						});
+						store.setKey("error", false);
+						store.setKey("dogs", data.message);
+						store.setKey("breed", Object.keys(data.message));
+						store.setKey("subBreed", Object.values(data.message));
+					} catch (e) {
+						console.log(e);
+						store.setKey("error", true);
+					} finally {
+						store.setKey("isLoading", false);
+					}
+				}).catch(console.log),
+			1000
+		);
 	});
 
 	const searchDogBreeds = action(store, "searchDogBreeds", (store, props: string) => {
