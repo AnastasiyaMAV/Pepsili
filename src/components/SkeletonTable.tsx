@@ -1,6 +1,4 @@
-import Skeleton from "@mui/material/Skeleton";
-import TableCell from "@mui/material/TableCell";
-import TableRow from "@mui/material/TableRow";
+import { Skeleton, TableCell, TableRow } from "@mui/material";
 
 export const SkeletonTable = ({ rowsNum }: { rowsNum: number }) => {
 	return [...Array(rowsNum)].map((row, index) => (

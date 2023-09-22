@@ -1,32 +1,41 @@
-import { action, map, task } from "nanostores";
+import { action, map, onMount, task } from "nanostores";
 
 type TDogs = {
 	[key: string]: string[];
 };
 
+type TImgDogs = {
+	message: string;
+	status: string;
+};
+
 type DogsStore = {
-	isLoading: boolean;
+	isLoadingRandomDog: boolean;
+	isLoadingDogBreeds: boolean;
 	dogs: TDogs;
 	breed: string[];
 	subBreed: Array<string>[];
 	searchImgBreed: string;
+	randomImgDog: TImgDogs;
 	error: boolean;
 };
 
 function createDogsStore() {
 	const initialState = {
-		isLoading: false,
+		isLoadingRandomDog: false,
+		isLoadingDogBreeds: false,
 		dogs: {},
 		breed: [],
 		subBreed: [[]],
 		searchImgBreed: "",
+		randomImgDog: { message: "", status: "" },
 		error: false,
 	};
 
 	const store = map<DogsStore>(initialState);
 
 	const fetchDogBreeds = action(store, "fetchDogBreeds", store => {
-		store.setKey("isLoading", true);
+		store.setKey("isLoadingDogBreeds", true);
 		setTimeout(
 			() =>
 				task(async () => {
@@ -42,7 +51,7 @@ function createDogsStore() {
 						console.log(e);
 						store.setKey("error", true);
 					} finally {
-						store.setKey("isLoading", false);
+						store.setKey("isLoadingDogBreeds", false);
 					}
 				}).catch(console.log),
 			1000
@@ -50,31 +59,65 @@ function createDogsStore() {
 	});
 
 	const searchDogBreeds = action(store, "searchDogBreeds", (store, props: string) => {
+		store.setKey("isLoadingDogBreeds", true);
 		props &&
 			task(async () => {
 				try {
 					const data = await fetch(`https://dog.ceo/api/breed/${props}/images`).then(res => {
 						if (res.ok) return res.json();
 					});
+					store.setKey("error", false);
 					const randomNum = Math.floor(Math.random() * data.message.length);
 					store.setKey("searchImgBreed", data.message[randomNum]);
 				} catch (e) {
 					console.log(e);
+					store.setKey("error", true);
 				} finally {
-					store.setKey("isLoading", true);
+					store.setKey("isLoadingDogBreeds", false);
 				}
 			}).catch(console.log);
+	});
+
+	const randomDog = action(store, "randomDog", store => {
+		store.setKey("isLoadingRandomDog", true);
+		setTimeout(
+			() =>
+				task(async () => {
+					try {
+						const data = await fetch("https://dog.ceo/api/breeds/image/random").then(res => {
+							if (res.ok) return res.json();
+						});
+						store.setKey("error", false);
+						store.setKey("randomImgDog", data);
+					} catch (e) {
+						console.log(e);
+						store.setKey("error", true);
+					} finally {
+						store.setKey("isLoadingRandomDog", false);
+					}
+				}).catch(console.log),
+			1000
+		);
 	});
 
 	const setSearchDogBreeds = action(store, "setSearchDogBreeds", (store, value: string) => {
 		store.setKey("searchImgBreed", value);
 	});
 
-	const setIsLoading = action(store, "setIsLoading", (store, value: boolean) => {
-		store.setKey("isLoading", value);
+	const setIsLoading = action(
+		store,
+		"setIsLoading",
+		(store, value: boolean, loading: "isLoadingRandomDog" | "isLoadingDogBreeds") => {
+			return store.setKey(loading, value);
+		}
+	);
+
+	onMount(store, () => {
+		fetchDogBreeds();
+		randomDog();
 	});
 
-	return { store, fetchDogBreeds, searchDogBreeds, setSearchDogBreeds, setIsLoading };
+	return { store, fetchDogBreeds, searchDogBreeds, randomDog, setSearchDogBreeds, setIsLoading };
 }
 
 export const dogsState = createDogsStore();

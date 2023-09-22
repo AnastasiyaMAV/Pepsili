@@ -1,11 +1,9 @@
-import Alert, { AlertColor } from "@mui/material/Alert";
-import Snackbar from "@mui/material/Snackbar";
-import Stack from "@mui/material/Stack";
-import * as React from "react";
+import { Alert, AlertColor, Snackbar, Stack } from "@mui/material";
+import { SyntheticEvent, useState } from "react";
 
 export const Toast = ({ message, type }: { message: string; type: AlertColor }) => {
-	const [open, setOpen] = React.useState(true);
-	const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+	const [open, setOpen] = useState<boolean>(true);
+	const handleClose = (event?: SyntheticEvent | Event, reason?: string) => {
 		if (reason === "clickaway") {
 			return;
 		}
