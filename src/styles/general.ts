@@ -15,3 +15,9 @@ export const Img = styled.img`
 	height: 500px;
 	object-fit: scale-down;
 `;
+
+export const ImgPhoto = styled.img`
+	width: 350px;
+	height: 350px;
+	object-fit: scale-down;
+`;

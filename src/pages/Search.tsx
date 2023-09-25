@@ -49,7 +49,7 @@ export const Search = () => {
 
 	useEffect(() => {
 		return () => {
-			dogsState.setSearchDogBreeds("");
+			dogsState.setSearchImgBreed("");
 			dogsState.setIsLoading(false, "isLoadingDogBreeds");
 		};
 	}, []);
@@ -107,10 +107,7 @@ export const Search = () => {
 												)}
 											/>
 										)}
-										{/* 
-								<Button type="submit" variant="contained">
-									Get a photo
-								</Button> */}
+
 										<LoadingButton
 											type="submit"
 											size="large"
