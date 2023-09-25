@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useRouteMatch } from "../hooks/useRouteMatch";
 
 export const Header = () => {
-	const routeMatch = useRouteMatch(["/table", "/cards", "/search"]);
+	const routeMatch = useRouteMatch(["/table", "/cards", "/search", "/photoAlbum"]);
 	const currentTab = routeMatch?.pattern?.path;
 
 	return (
@@ -26,6 +26,7 @@ export const Header = () => {
 					<Tab label="Table of dog breeds" value="/table" to="/table" component={Link} />
 					<Tab label="Dog cards" value="/cards" to="/cards" component={Link} />
 					<Tab label="Dog breed photo search" value="/search" to="/search" component={Link} />
+					<Tab label="Photo Album" value="/photoAlbum" to="/photoAlbum" component={Link} />
 					<Tab value="/" to="/" component={Link} icon={<FavoriteIcon />} />
 				</Tabs>
 			</Box>

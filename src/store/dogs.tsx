@@ -4,8 +4,13 @@ type TDogs = {
 	[key: string]: string[];
 };
 
-type TImgDogs = {
+type TOneImgDogs = {
 	message: string;
+	status: string;
+};
+
+type TAllImgDogs = {
+	message: string[];
 	status: string;
 };
 
@@ -16,7 +21,8 @@ type DogsStore = {
 	breed: string[];
 	subBreed: Array<string>[];
 	searchImgBreed: string;
-	randomImgDog: TImgDogs;
+	photoAlbum: TAllImgDogs;
+	randomImgDog: TOneImgDogs;
 	error: boolean;
 };
 
@@ -28,6 +34,7 @@ function createDogsStore() {
 		breed: [],
 		subBreed: [[]],
 		searchImgBreed: "",
+		photoAlbum: { message: [], status: "" },
 		randomImgDog: { message: "", status: "" },
 		error: false,
 	};
@@ -67,6 +74,7 @@ function createDogsStore() {
 						if (res.ok) return res.json();
 					});
 					store.setKey("error", false);
+					store.setKey("photoAlbum", data);
 					const randomNum = Math.floor(Math.random() * data.message.length);
 					store.setKey("searchImgBreed", data.message[randomNum]);
 				} catch (e) {
@@ -100,8 +108,12 @@ function createDogsStore() {
 		);
 	});
 
-	const setSearchDogBreeds = action(store, "setSearchDogBreeds", (store, value: string) => {
+	const setSearchImgBreed = action(store, "setSearchImgBreed", (store, value: string) => {
 		store.setKey("searchImgBreed", value);
+	});
+
+	const setPhotoAlbum = action(store, "setPhotoAlbum", (store, value: TAllImgDogs) => {
+		store.setKey("photoAlbum", value);
 	});
 
 	const setIsLoading = action(
@@ -117,7 +129,7 @@ function createDogsStore() {
 		randomDog();
 	});
 
-	return { store, fetchDogBreeds, searchDogBreeds, randomDog, setSearchDogBreeds, setIsLoading };
+	return { store, fetchDogBreeds, searchDogBreeds, setPhotoAlbum, randomDog, setSearchImgBreed, setIsLoading };
 }
 
 export const dogsState = createDogsStore();
