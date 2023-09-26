@@ -20,6 +20,7 @@ import { SkeletonTable } from "../components/SkeletonTable";
 import { Toast } from "../components/Toast";
 
 import { dogsState } from "../store/dogs";
+import { СontainerRandomImgDog } from "../styles/adaptiveLayout";
 
 interface Column {
 	id: "byBreed" | "bySubBreed";
@@ -56,7 +57,7 @@ export const TableDog = () => {
 	return (
 		<>
 			<Grid container spacing={2} style={{ marginTop: "24px" }}>
-				<Grid item xs={6} container justifyContent="center">
+				<Grid item xs={12} sm={12} md={12} lg={6} xl={6} container justifyContent="center">
 					<Paper
 						sx={{
 							overflow: "hidden",
@@ -124,9 +125,9 @@ export const TableDog = () => {
 						</Paper>
 					</Paper>
 				</Grid>
-				<Grid item xs={6} container direction="row" justifyContent="center" alignItems="center">
+				<СontainerRandomImgDog item lg={6} xl={6} container direction="row" justifyContent="center" alignItems="center">
 					<RandomImgDog />
-				</Grid>
+				</СontainerRandomImgDog>
 			</Grid>
 
 			{error && (

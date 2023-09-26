@@ -3,30 +3,16 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { LoadingButton } from "@mui/lab";
 import { Alert, Box, FormControl, IconButton, InputLabel, MenuItem, Select, Skeleton, Tooltip } from "@mui/material";
 import ImageListItem, { imageListItemClasses } from "@mui/material/ImageListItem";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import { useStore } from "@nanostores/react";
 import { SyntheticEvent, useEffect } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 
 import { dogsState } from "../store/dogs";
+import { theme, СontainerPhotoAlbumForm } from "../styles/adaptiveLayout";
 import { ImgPhoto } from "../styles/general";
+import { TDog } from "../types/general";
 import { searchScheme } from "../validation/search";
-
-const theme = createTheme({
-	breakpoints: {
-		values: {
-			xs: 0,
-			sm: 350,
-			md: 650,
-			lg: 900,
-			xl: 1600,
-		},
-	},
-});
-
-type TDog = {
-	breed: string;
-};
 
 export const PhotoAlbum = () => {
 	const { breed, photoAlbum, isLoadingDogBreeds } = useStore(dogsState.store);
@@ -65,7 +51,7 @@ export const PhotoAlbum = () => {
 				<form onSubmit={handleSubmit(handleSendFoto)}>
 					<Box sx={{ marginTop: "24px", display: "flex", gap: 24 }}>
 						<FormControl>
-							<Box sx={{ display: "flex", flexDirection: "row", gap: 24 }}>
+							<СontainerPhotoAlbumForm sx={{ display: "flex", flexDirection: "row", gap: "24px" }}>
 								<InputLabel id="label-breed">Breed</InputLabel>
 								{breed.length === 0 ? (
 									<Tooltip title="Something went wrong, please try again later" placement="top-start">
@@ -109,9 +95,9 @@ export const PhotoAlbum = () => {
 								>
 									Show photos
 								</LoadingButton>
-							</Box>
+								{errors.breed && <Alert severity="error">{errors.breed.message}</Alert>}
+							</СontainerPhotoAlbumForm>
 						</FormControl>
-						{errors.breed && <Alert severity="error">{errors.breed.message}</Alert>}
 					</Box>
 				</form>
 			</FormProvider>
@@ -127,7 +113,7 @@ export const PhotoAlbum = () => {
 							lg: "repeat(4, 1fr)",
 							xl: "repeat(5, 1fr)",
 						},
-						rowGap: "10px",
+						rowGap: "4px",
 						[`& .${imageListItemClasses.root}`]: {
 							display: "flex",
 							flexDirection: "column",
