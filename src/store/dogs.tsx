@@ -1,30 +1,6 @@
 import { action, map, onMount, task } from "nanostores";
 
-type TDogs = {
-	[key: string]: string[];
-};
-
-type TOneImgDogs = {
-	message: string;
-	status: string;
-};
-
-type TAllImgDogs = {
-	message: string[];
-	status: string;
-};
-
-type DogsStore = {
-	isLoadingRandomDog: boolean;
-	isLoadingDogBreeds: boolean;
-	dogs: TDogs;
-	breed: string[];
-	subBreed: Array<string>[];
-	searchImgBreed: string;
-	photoAlbum: TAllImgDogs;
-	randomImgDog: TOneImgDogs;
-	error: boolean;
-};
+import { DogsStore, TAllImgDogs } from "../types/general";
 
 function createDogsStore() {
 	const initialState = {

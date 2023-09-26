@@ -23,11 +23,8 @@ import { Toast } from "../components/Toast";
 import Dog from "../assets/dog.png";
 import { dogsState } from "../store/dogs";
 import { Img } from "../styles/general";
+import { TDog } from "../types/general";
 import { searchScheme } from "../validation/search";
-
-type TDog = {
-	breed: string;
-};
 
 export const Search = () => {
 	const { breed, searchImgBreed, error, isLoadingDogBreeds } = useStore(dogsState.store);
@@ -56,7 +53,7 @@ export const Search = () => {
 
 	return (
 		<Grid container spacing={2} style={{ marginTop: "24px" }}>
-			<Grid item xs={6} container justifyContent="center" alignItems="center">
+			<Grid item xs={12} sm={12} md={12} lg={6} xl={6} container justifyContent="center" alignItems="center">
 				<Card
 					sx={{
 						minWidth: 275,
@@ -124,7 +121,18 @@ export const Search = () => {
 					</CardContent>
 				</Card>
 			</Grid>
-			<Grid item xs={6} container direction="row" justifyContent="center" alignItems="center">
+			<Grid
+				item
+				xs={12}
+				sm={12}
+				md={12}
+				lg={6}
+				xl={6}
+				container
+				direction="row"
+				justifyContent="center"
+				alignItems="center"
+			>
 				{searchImgBreed ? (
 					<Zoom in={!!searchImgBreed} style={{ transitionDelay: !searchImgBreed ? "500ms" : "0ms" }}>
 						{!error ? <Img src={searchImgBreed} /> : <Img src={Dog} />}
