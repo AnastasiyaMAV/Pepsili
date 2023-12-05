@@ -1,3 +1,8 @@
+import Dog from "@/assets/dog.png";
+import { dogsState } from "@/store/dogs";
+import { Img } from "@/styles/general";
+import { TDog } from "@/types/general";
+import { searchScheme } from "@/validation/search";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoadingButton } from "@mui/lab";
 import {
@@ -18,13 +23,7 @@ import { useStore } from "@nanostores/react";
 import { useEffect } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 
-import { Toast } from "../components/Toast";
-
-import Dog from "../assets/dog.png";
-import { dogsState } from "../store/dogs";
-import { Img } from "../styles/general";
-import { TDog } from "../types/general";
-import { searchScheme } from "../validation/search";
+import { Toast } from "@/components/Toast";
 
 export const Search = () => {
 	const { breed, searchImgBreed, error, isLoadingDogBreeds } = useStore(dogsState.store);

@@ -1,7 +1,6 @@
+import Dog from "@/assets/dog.png";
+import { Img } from "@/styles/general";
 import { Box, Card, CardContent, Link, Typography } from "@mui/material";
-
-import Dog from "../assets/dog.png";
-import { Img } from "../styles/general";
 
 export const Error = () => {
 	return (

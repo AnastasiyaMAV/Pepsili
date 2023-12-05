@@ -1,6 +1,5 @@
+import { Item } from "@/styles/general";
 import { Grid, Skeleton } from "@mui/material";
-
-import { Item } from "../styles/general";
 
 export const SkeletonCards = ({ rowsNum }: { rowsNum: number }) => {
 	return [...Array(rowsNum)].map((_, index) => (
