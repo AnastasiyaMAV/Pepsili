@@ -1,18 +1,16 @@
+import { dogsState } from "@/store/dogs";
+import { СontainerPhotoAlbumForm } from "@/styles/adaptiveLayout";
+import { ImgPhoto } from "@/styles/general";
+import { TDog } from "@/types/general";
+import { searchScheme } from "@/validation/search";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { LoadingButton } from "@mui/lab";
 import { Alert, Box, FormControl, IconButton, InputLabel, MenuItem, Select, Skeleton, Tooltip } from "@mui/material";
 import ImageListItem, { imageListItemClasses } from "@mui/material/ImageListItem";
-import { ThemeProvider } from "@mui/material/styles";
 import { useStore } from "@nanostores/react";
 import { SyntheticEvent, useEffect } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
-
-import { dogsState } from "../store/dogs";
-import { theme, СontainerPhotoAlbumForm } from "../styles/adaptiveLayout";
-import { ImgPhoto } from "../styles/general";
-import { TDog } from "../types/general";
-import { searchScheme } from "../validation/search";
 
 export const PhotoAlbum = () => {
 	const { breed, photoAlbum, isLoadingDogBreeds } = useStore(dogsState.store);
@@ -101,38 +99,37 @@ export const PhotoAlbum = () => {
 					</Box>
 				</form>
 			</FormProvider>
-			<ThemeProvider theme={theme}>
-				<Box
-					sx={{
-						marginTop: "24px",
-						display: "grid",
-						gridTemplateColumns: {
-							xs: "repeat(1, 1fr)",
-							sm: "repeat(2, 1fr)",
-							md: "repeat(3, 1fr)",
-							lg: "repeat(4, 1fr)",
-							xl: "repeat(5, 1fr)",
-						},
-						rowGap: "4px",
-						[`& .${imageListItemClasses.root}`]: {
-							display: "flex",
-							flexDirection: "column",
-						},
-					}}
-				>
-					{photoAlbum.message.length > 0
-						? photoAlbum.message.map(item => (
-								<ImageListItem key={item}>
-									<ImgPhoto src={`${item}`} srcSet={`${item}`} loading="eager" onError={e => handlerOnError(e)} />
-								</ImageListItem>
-						  ))
-						: [...Array(8)].map((_, index) => (
-								<Skeleton key={index} variant="rectangular" width="350px" animation="wave">
-									<div style={{ height: "350px" }} />
-								</Skeleton>
-						  ))}
-				</Box>
-			</ThemeProvider>
+			<Box
+				sx={{
+					marginTop: "24px",
+					display: "grid",
+					gridTemplateColumns: {
+						xs: "repeat(1, 1fr)",
+						sm: "repeat(2, 1fr)",
+						md: "repeat(3, 1fr)",
+						lg: "repeat(4, 1fr)",
+						xl: "repeat(4, 1fr)",
+					},
+					justifyItems: "center",
+					rowGap: "4px",
+					[`& .${imageListItemClasses.root}`]: {
+						display: "flex",
+						flexDirection: "column",
+					},
+				}}
+			>
+				{photoAlbum.message.length > 0
+					? photoAlbum.message.map(item => (
+							<ImageListItem key={item}>
+								<ImgPhoto src={`${item}`} srcSet={`${item}`} loading="eager" onError={e => handlerOnError(e)} />
+							</ImageListItem>
+					  ))
+					: [...Array(8)].map((_, index) => (
+							<Skeleton key={index} variant="rectangular" width="350px" animation="wave">
+								<div style={{ height: "350px" }} />
+							</Skeleton>
+					  ))}
+			</Box>
 			{photoAlbum.message.length > 0 && (
 				<Box sx={{ textAlign: "end" }} title="UP">
 					<IconButton onClick={() => window.scrollTo({ top: 0 })}>

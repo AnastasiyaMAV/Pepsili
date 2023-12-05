@@ -16,7 +16,7 @@ export type TAllImgDogs = {
 	status: string;
 };
 
-export type DogsStore = {
+export type TDogsStore = {
 	isLoadingRandomDog: boolean;
 	isLoadingDogBreeds: boolean;
 	dogs: TDogs;
@@ -26,4 +26,8 @@ export type DogsStore = {
 	photoAlbum: TAllImgDogs;
 	randomImgDog: TOneImgDogs;
 	error: boolean;
+};
+
+export type TThemeStore = {
+	darkTheme: boolean;
 };

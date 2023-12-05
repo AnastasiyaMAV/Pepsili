@@ -1,6 +1,5 @@
+import { TAllImgDogs, TDogsStore } from "@/types/general";
 import { action, map, onMount, task } from "nanostores";
-
-import { DogsStore, TAllImgDogs } from "../types/general";
 
 function createDogsStore() {
 	const initialState = {
@@ -15,7 +14,7 @@ function createDogsStore() {
 		error: false,
 	};
 
-	const store = map<DogsStore>(initialState);
+	const store = map<TDogsStore>(initialState);
 
 	const fetchDogBreeds = action(store, "fetchDogBreeds", store => {
 		store.setKey("isLoadingDogBreeds", true);

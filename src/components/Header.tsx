@@ -1,16 +1,20 @@
+import { themeState } from "@/store/theme";
+import { СontainerMenu, СontainerMenuButton } from "@/styles/adaptiveLayout";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Box, Tab, Tabs, Typography } from "@mui/material";
+import { Box, IconButton, Tab, Tabs, Typography } from "@mui/material";
+import { useStore } from "@nanostores/react";
 import { Link } from "react-router-dom";
 
-import { MenuButton } from "../components/MenuButton";
+import { MenuButton } from "@/components/MenuButton";
 
-import { useRouteMatch } from "../hooks/useRouteMatch";
-
-import { СontainerMenu, СontainerMenuButton } from "../styles/adaptiveLayout";
+import { useRouteMatch } from "@/hooks/useRouteMatch";
 
 export const Header = () => {
 	const routeMatch = useRouteMatch(["/table", "/cards", "/search", "/photoAlbum"]);
 	const currentTab = routeMatch?.pattern?.path;
+	const { darkTheme } = useStore(themeState.store);
 
 	return (
 		<>
@@ -21,6 +25,14 @@ export const Header = () => {
 						justifyContent: "flex-end",
 					}}
 				>
+					<IconButton
+						onClick={() => {
+							themeState.setIsDarkTheme(!darkTheme);
+						}}
+						color="inherit"
+					>
+						{darkTheme ? <Brightness4Icon /> : <Brightness7Icon />}
+					</IconButton>
 					<Tabs value={currentTab}>
 						<Tab label="Table of dog breeds" value="/table" to="/table" component={Link} />
 						<Tab label="Dog cards" value="/cards" to="/cards" component={Link} />

@@ -1,3 +1,5 @@
+import { dogsState } from "@/store/dogs";
+import { СontainerRandomImgDog } from "@/styles/adaptiveLayout";
 import BrowserNotSupportedIcon from "@mui/icons-material/BrowserNotSupported";
 import {
 	Grid,
@@ -15,12 +17,9 @@ import {
 import { useStore } from "@nanostores/react";
 import { ChangeEvent, useState } from "react";
 
-import { RandomImgDog } from "../components/RandomImgDog";
-import { SkeletonTable } from "../components/SkeletonTable";
-import { Toast } from "../components/Toast";
-
-import { dogsState } from "../store/dogs";
-import { СontainerRandomImgDog } from "../styles/adaptiveLayout";
+import { RandomImgDog } from "@/components/RandomImgDog";
+import { SkeletonTable } from "@/components/SkeletonTable";
+import { Toast } from "@/components/Toast";
 
 interface Column {
 	id: "byBreed" | "bySubBreed";

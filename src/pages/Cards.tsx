@@ -1,15 +1,14 @@
+import { dogsState } from "@/store/dogs";
+import { Item } from "@/styles/general";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { Box, Grid, IconButton, Tooltip } from "@mui/material";
 import { useStore } from "@nanostores/react";
 import { useState } from "react";
 
-import { SkeletonCards } from "../components/SkeletonCards";
-import { Toast } from "../components/Toast";
+import { SkeletonCards } from "@/components/SkeletonCards";
+import { Toast } from "@/components/Toast";
 
-import { useClipboard } from "../hooks/useClipboard";
-
-import { dogsState } from "../store/dogs";
-import { Item } from "../styles/general";
+import { useClipboard } from "@/hooks/useClipboard";
 
 export const Cards = () => {
 	const { breed, isLoadingDogBreeds, error } = useStore(dogsState.store);

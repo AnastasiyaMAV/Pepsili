@@ -1,12 +1,11 @@
+import { dogsState } from "@/store/dogs";
+import { Img } from "@/styles/general";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Box, Grid, Skeleton, Zoom } from "@mui/material";
 import { useStore } from "@nanostores/react";
 import { SyntheticEvent, useState } from "react";
 
-import { Toast } from "../components/Toast";
-
-import { dogsState } from "../store/dogs";
-import { Img } from "../styles/general";
+import { Toast } from "@/components/Toast";
 
 export const RandomImgDog = () => {
 	const { randomImgDog, isLoadingRandomDog } = useStore(dogsState.store);
